@@ -3,7 +3,6 @@
 	import { tick } from 'svelte';
 	import url from './google.jpg';
 	import { fade, fly } from 'svelte/transition';
-	import { phishInfo } from '$lib/stores';
 
 	let state: 'email' | 'password' | 'phished' = 'email';
 
@@ -26,13 +25,22 @@
 		await tick();
 		passwordElement?.focus();
 	}
+	function obfuscateInfo(info: string): string {
+		// only show last 3 characters, rest are asterisks
+		return info.slice(0, -3).replace(/./g, '*') + info.slice(-3);
+	}
 
 	function stateToPhished() {
 		password = passwordElement?.value ?? null;
 		state = 'phished';
 		if (!email || !password) return;
-		$phishInfo = { email, password };
-		goto('/phished', { replaceState: true, invalidateAll: true });
+		let phishInfo = { email, password: obfuscateInfo(password) };
+		// open new tab with phish info in url
+		// get current domain and construct new with /phished
+		let phishUrl = new URL(window.location.href);
+		phishUrl.pathname = '/phished';
+		phishUrl.searchParams.set('phishInfo', JSON.stringify(phishInfo));
+		window.open(phishUrl.toString());
 	}
 </script>
 

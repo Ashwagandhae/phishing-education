@@ -1,15 +1,20 @@
 <script lang="ts">
-	import { phishInfo } from '$lib/stores';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 
-	function obfuscateInfo(info: string): string {
-		// only show last 3 characters, rest are asterisks
-		return info.slice(0, -3).replace(/./g, '*') + info.slice(-3);
-	}
 	let show = false;
+	let phishInfo: null | { email: string; password: string } = null;
 	onMount(() => {
 		show = true;
+		// get search params
+		let urlParams = new URLSearchParams(window.location.search);
+		// get phish info
+		let phishInfoString = urlParams.get('phishInfo');
+		if (phishInfoString) {
+			try {
+				phishInfo = JSON.parse(phishInfoString);
+			} catch (e) {}
+		}
 	});
 </script>
 
@@ -24,14 +29,14 @@
 			<h1>Uh oh</h1>
 		</section>
 		<section in:fade|global={{ duration: 500, delay: 2000 }}>
-			{#if $phishInfo}
+			{#if phishInfo}
 				<p>
 					Your email <span class="info">
-						{$phishInfo.email}
+						{phishInfo.email}
 					</span>
 					and password
 					<span class="info">
-						{obfuscateInfo($phishInfo.password)}
+						{phishInfo.password}
 					</span> could have been stolen!
 				</p>
 			{:else}
