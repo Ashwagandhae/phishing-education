@@ -32,7 +32,7 @@
 		state = 'phished';
 		if (!email || !password) return;
 		$phishInfo = { email, password };
-		goto('/phished');
+		goto('/phished', { replaceState: true, invalidateAll: true });
 	}
 </script>
 
