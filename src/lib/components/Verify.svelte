@@ -144,6 +144,16 @@
 		justify-content: center;
 		position: absolute;
 	}
+	@media (max-width: 500px) {
+		.verify {
+			width: 100%;
+			height: 100%;
+		}
+		.content {
+			position: relative;
+			padding: 10px;
+		}
+	}
 
 	img {
 		width: 90px;

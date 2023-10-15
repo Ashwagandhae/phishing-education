@@ -286,7 +286,7 @@
 	@media (max-width: 768px) {
 		.popup {
 			flex-direction: column-reverse;
-			width: calc(100vw - 10rem);
+			width: calc(100vw - 2rem);
 			height: auto;
 		}
 
@@ -332,13 +332,14 @@
 		align-items: center;
 		padding: 2em;
 		box-sizing: border-box;
-		width: 100%;
+		width: 100vw;
 		background: var(--back-indent);
 	}
 
 	nav {
 		display: flex;
 		gap: 1em;
+		overflow-x: scroll;
 	}
 
 	nav a {
@@ -349,10 +350,6 @@
 
 	nav a:hover {
 		text-decoration: underline;
-	}
-
-	.page {
-		flex: 1;
 	}
 
 	footer {
@@ -375,7 +372,7 @@
 		padding: 0.5em;
 	}
 	.page {
-		padding: 2em;
+		padding: 1rem;
 		min-height: 100vh;
 		width: 100%;
 		box-sizing: border-box;
@@ -388,6 +385,10 @@
 		.topbar {
 			gap: 2em;
 			padding: 2em 1em;
+		}
+
+		footer ul {
+			flex-direction: column;
 		}
 	}
 </style>

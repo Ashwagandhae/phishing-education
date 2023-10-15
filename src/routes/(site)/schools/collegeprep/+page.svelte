@@ -80,12 +80,12 @@
 		width: 50%;
 	}
 
-	.text h1 {
-		font-size: 2em;
-	}
-
-	.text p {
+	p {
 		font-size: 1.2rem;
+	}
+	h1 {
+		font-size: 2rem;
+		margin: 0;
 	}
 
 	img {
@@ -102,7 +102,6 @@
 		width: 100%;
 
 		background: white;
-		padding: 1rem;
 		box-sizing: border-box;
 		border-radius: 1em;
 	}
@@ -115,47 +114,12 @@
 		gap: 2em;
 	}
 
-	@media (max-width: 768px) {
-		.explain {
-			flex-direction: column;
-		}
-
-		.merchdisplay {
-			flex-direction: column;
-		}
-
-		.text {
-			width: 100%;
-		}
-
-		img {
-			width: 100%;
-		}
-
-		.hoodie {
-			width: 100%;
-		}
-
-		.instructs {
-			flex-direction: column;
-			align-items: center;
-		}
-	}
-
 	.info {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		gap: 2em;
-	}
-
-	.info h1 {
-		font-size: 2.5rem;
-		margin: 0;
-	}
-	.info p {
-		font-size: 1.2rem;
-		margin: 0;
+		padding: 1rem;
 	}
 
 	.steps {
@@ -186,9 +150,58 @@
 	.steps div.selected {
 		font-weight: bold;
 	}
-
 	ol {
 		font-size: 1.2rem;
 		margin: 0;
+	}
+
+	@media (max-width: 768px) {
+		.explain {
+			flex-direction: column;
+		}
+
+		.merchdisplay {
+			flex-direction: column;
+		}
+
+		.text {
+			width: 100%;
+		}
+
+		img {
+			width: 100%;
+		}
+
+		.hoodie {
+			width: 100%;
+		}
+
+		.instructs {
+			flex-direction: column;
+			align-items: center;
+		}
+
+		h1 {
+			font-size: 1.5em;
+		}
+		p {
+			font-size: 1em;
+		}
+		ol {
+			font-size: 1rem;
+		}
+		.steps {
+			font-size: 0.8rem;
+		}
+	}
+
+	@media (max-width: 500px) {
+		.steps {
+			flex-direction: column;
+		}
+		.steps div::after {
+			content: '';
+			margin-left: 0;
+		}
 	}
 </style>

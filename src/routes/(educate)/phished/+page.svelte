@@ -57,12 +57,12 @@
 <style>
 	@import '@fontsource/atkinson-hyperlegible';
 
-	:global(body) {
-		background: #ecb0b0;
-	}
 	main {
+		background: #ecb0b0;
+
 		box-sizing: border-box;
 		width: 100vw;
+		min-height: 100vh;
 		font-family: 'Atkinson Hyperlegible', sans-serif;
 		padding: 2em;
 	}

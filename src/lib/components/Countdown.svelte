@@ -27,7 +27,7 @@
 
 <style>
 	.count {
-		width: 100%;
+		width: calc(100% - 2rem);
 		position: relative;
 		display: flex;
 		flex-direction: column;
