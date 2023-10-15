@@ -5,6 +5,11 @@
 	import { onMount } from 'svelte';
 	import happyUrl from './happy.png';
 
+	import { dev } from '$app/environment';
+	import { inject } from '@vercel/analytics';
+
+	inject({ mode: dev ? 'development' : 'production' });
+
 	let showCookies = false;
 
 	let showPopup = false;
