@@ -13,10 +13,9 @@
 				<Logo />
 				—STOCK OVERFLOW!
 			</span>
-			<h1>Free merch for College Prep students!</h1>
+			<h1>Free hoodie for College Prep students!</h1>
 			<p>
-				Due to the stock overflow event, Personal Paint is giving away <b>100 pieces of merch</b> to
-				all students and faculty!
+				Due to the stock overflow event, Personal Paint is giving away <b>100 hoodies</b> to the students!
 			</p>
 		</div>
 		<img src={cpsUrl} alt="College Prep logo" />
@@ -29,20 +28,20 @@
 		<div class="info">
 			<h1>First come first serve!</h1>
 			<p>
-				To claim your free merch, you must <b>verify your College Prep email</b>, to ensure that
+				To claim your free hoodie, you must <b>verify your College Prep email</b>, to ensure that
 				only College Prep students and faculty can claim the free merch.
 			</p>
 			<p>Complete your order in 3 steps:</p>
 			<ol>
 				<li>Verify your College Prep email</li>
-				<li>Choose your merch</li>
+				<li>Choose your hoodie color</li>
 				<li>Enter your shipping details</li>
 			</ol>
 		</div>
 		<div class="input">
 			<div class="steps">
 				<div class="selected">Verify</div>
-				<div>Choose merch</div>
+				<div>Choose hoodie</div>
 				<div>Shipping details</div>
 			</div>
 			<Verify />

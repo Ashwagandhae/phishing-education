@@ -29,6 +29,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@fontsource-variable/jetbrains-mono": "^5.0.16",
+		"@fontsource/atkinson-hyperlegible": "^5.0.15",
 		"@fontsource/noto-sans": "^5.0.15",
 		"@fontsource/roboto": "^5.0.8",
 		"@sveltejs/adapter-static": "^2.0.3",

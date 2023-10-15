@@ -22,11 +22,12 @@
 			<h1 in:fly={{ y: 100 }} out:fly={{ y: -100 }}>{count}</h1>
 		{/key}
 	</div>
-	<p>pieces of merch left!</p>
+	<p>hoodies left!</p>
 </div>
 
 <style>
 	.count {
+		width: 100%;
 		position: relative;
 		display: flex;
 		flex-direction: column;
